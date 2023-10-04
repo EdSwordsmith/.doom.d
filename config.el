@@ -87,6 +87,7 @@
 
 ;; (use-package! elcord
 ;;   :init
-;;   (add-hook 'doom-first-buffer-hook #'elcord-mode)
-;;   :config
-;;   (setq elcord-use-major-mode-as-main-icon t))
+;;   (setq elcord-use-major-mode-as-main-icon t)
+;;   (setq elcord-editor-icon "doom_cute_icon")
+;;   (setq elcord-display-line-numbers nil)
+;;   (add-hook 'doom-first-buffer-hook #'elcord-mode))
