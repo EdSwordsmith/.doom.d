@@ -91,3 +91,8 @@
 ;;   (setq elcord-editor-icon "doom_cute_icon")
 ;;   (setq elcord-display-line-numbers nil)
 ;;   (add-hook 'doom-first-buffer-hook #'elcord-mode))
+
+(map! :after python
+      :map python-mode-map
+      :localleader
+      "r" #'run-python)
