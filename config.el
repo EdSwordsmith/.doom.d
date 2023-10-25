@@ -96,3 +96,9 @@
       :map python-mode-map
       :localleader
       "r" #'run-python)
+
+(setq read-file-name-completion-ignore-case t
+      read-buffer-completion-ignore-case t
+      completion-ignore-case t)
+
+(set-formatter! 'alejandra "alejandra --quiet" :modes '(nix-mode))
