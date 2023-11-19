@@ -101,4 +101,30 @@
       read-buffer-completion-ignore-case t
       completion-ignore-case t)
 
-(set-formatter! 'alejandra "alejandra --quiet" :modes '(nix-mode))
+(set-formatter! 'alejandra '("alejandra" "--quiet") :modes '(nix-mode))
+
+;; taken from (https://discourse.doomemacs.org/t/org-tips-and-tricks-thread/2718/2)
+(defadvice! org-roam-in-own-workspace-a (&rest _)
+  "Open all roam buffers in there own workspace."
+  :before #'org-roam-node-find
+  :before #'org-roam-node-random
+  :before #'org-roam-buffer-display-dedicated
+  :before #'org-roam-buffer-toggle
+  (when (modulep! :ui workspaces)
+    (+workspace-switch "*roam*" t)))
+
+(setq shell-file-name (executable-find "bash"))
+(setq-default vterm-shell (executable-find "fish"))
+
+;; Astro
+(define-derived-mode astro-mode web-mode "Astro")
+(add-to-list 'auto-mode-alist '(".*\\.astro\\'"  . astro-mode))
+(use-package! eglot
+  :config
+  (add-to-list 'eglot-server-programs
+               '(astro-mode . ("astro-ls" "--stdio"
+                               :initializationOptions
+                               (:typescript (:tsdk "./node_modules/typescript/lib")))))
+  :init
+  ;; auto start eglot for astro-mode
+  (add-hook 'astro-mode-hook 'eglot-ensure))
