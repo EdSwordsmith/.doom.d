@@ -31,11 +31,11 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-ayu-mirage)
+(setq doom-theme 'doom-dracula)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type t)
+(setq display-line-numbers-type nil)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -104,7 +104,7 @@
 (set-formatter! 'alejandra '("alejandra" "--quiet") :modes '(nix-mode))
 
 ;; taken from (https://discourse.doomemacs.org/t/org-tips-and-tricks-thread/2718/2)
-(defadvice! org-roam-in-own-workspace-a (&rest _)
+(defadvice! edswordsmith/org-roam-in-own-workspace-a (&rest _)
   "Open all roam buffers in there own workspace."
   :before #'org-roam-node-find
   :before #'org-roam-node-random
@@ -113,18 +113,15 @@
   (when (modulep! :ui workspaces)
     (+workspace-switch "*roam*" t)))
 
-(setq shell-file-name (executable-find "bash"))
-(setq-default vterm-shell (executable-find "fish"))
+(defadvice! edswordsmith/doom-config-in-own-workspace-a (&rest _)
+  "Open doom config in its own workspace."
+  :before #'doom/find-file-in-private-config
+  :before #'doom/open-private-config
+  :before #'doom/goto-private-config-file
+  :before #'doom/goto-private-init-file
+  :before #'doom/goto-private-packages-file
+  (when (modulep! :ui workspaces)
+    (+workspace-switch "doom" t)))
 
 ;; Astro
-(define-derived-mode astro-mode web-mode "Astro")
-(add-to-list 'auto-mode-alist '(".*\\.astro\\'"  . astro-mode))
-(use-package! eglot
-  :config
-  (add-to-list 'eglot-server-programs
-               '(astro-mode . ("astro-ls" "--stdio"
-                               :initializationOptions
-                               (:typescript (:tsdk "./node_modules/typescript/lib")))))
-  :init
-  ;; auto start eglot for astro-mode
-  (add-hook 'astro-mode-hook 'eglot-ensure))
+(add-to-list 'auto-mode-alist '(".*\\.astro\\'"  . web-mode))
