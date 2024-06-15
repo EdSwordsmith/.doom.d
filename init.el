@@ -96,7 +96,7 @@
        ;;ein               ; tame Jupyter notebooks with emacs
        (eval +overlay)     ; run code, run (also, repls)
        lookup              ; navigate your code and its documentation
-       lsp               ; M-x vscode
+       (lsp +eglot)               ; M-x vscode
        magit             ; a git porcelain for Emacs
        make              ; run make tasks from Emacs
        ;;pass              ; password manager for nerds
@@ -155,7 +155,7 @@
        (nix +tree-sitter)               ; I hereby declare "nix geht mehr!"
        (ocaml +lsp +tree-sitter)             ; an objective camel
        (org +pretty +roam2)               ; organize your plain life in plain text
-       (php +lsp)               ; perl's insecure younger brother
+       ;;(php +lsp)               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
        (python +lsp +pyright +tree-sitter)            ; beautiful is better than ugly

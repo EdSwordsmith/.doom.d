@@ -31,7 +31,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-dracula)
+(setq doom-theme 'gruber-darker)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -85,12 +85,12 @@
         org-roam-ui-update-on-save t
         org-roam-ui-open-on-start t))
 
-(use-package! elcord
-  :init
-  (setq elcord-use-major-mode-as-main-icon t)
-  (setq elcord-editor-icon "doom_cute_icon")
-  (setq elcord-display-line-numbers nil)
-  (add-hook 'doom-first-buffer-hook #'elcord-mode))
+;; (use-package! elcord
+;;   :init
+;;   (setq elcord-use-major-mode-as-main-icon t)
+;;   (setq elcord-editor-icon "doom_cute_icon")
+;;   (setq elcord-display-line-numbers nil)
+;;   (add-hook 'doom-first-buffer-hook #'elcord-mode))
 
 (map! :after python
       :map python-mode-map
@@ -126,16 +126,14 @@
 ;; Astro
 (add-to-list 'auto-mode-alist '(".*\\.astro\\'"  . web-mode))
 
-;; Java Configuration
-(after! lsp-java
-  (setq lombok-library-path (concat doom-data-dir "lombok.jar"))
-  (unless (file-exists-p lombok-library-path)
-    (url-copy-file "https://projectlombok.org/downloads/lombok.jar" lombok-library-path))
-
-  (setq lsp-java-vmargs '("-XX:+UseParallelGC" "-XX:GCTimeRatio=4" "-XX:AdaptiveSizePolicyWeight=90" "-Dsun.zip.disableMemoryMapping=true" "-Xmx4G" "-Xms100m"))
-  (push (concat "-javaagent:" (expand-file-name lombok-library-path)) lsp-java-vmargs))
+;; Eat
+(use-package! eat
+  :config
+  (setq eat-term-name "xterm-256color"))
 
 ;; Julia REPL
 (use-package! julia-repl
   :config
   (julia-repl-set-terminal-backend 'vterm))
+
+(setq eglot-jl-language-server-project "~/.julia/environments/v1.10")
