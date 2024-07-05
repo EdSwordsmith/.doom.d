@@ -8,13 +8,15 @@
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
 ;; (package! some-package)
 
+;; (package! elcord)
+
 (unpin! org-roam)
 (package! org-roam-ui)
+
+(package! gruber-darker-theme)
+
 (package! lox-mode
   :recipe (:host github :repo "timmyjose-projects/lox-mode"))
-(package! elcord)
-(package! gruber-darker-theme)
-(package! eat)
 
 ;; To install a package directly from a remote git repo, you must specify a
 ;; `:recipe'. You'll find documentation on what `:recipe' accepts here:
