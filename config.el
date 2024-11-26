@@ -113,23 +113,8 @@
   (when (modulep! :ui workspaces)
     (+workspace-switch "*roam*" t)))
 
-(defadvice! edswordsmith/doom-config-in-own-workspace-a (&rest _)
-  "Open doom config in its own workspace."
-  :before #'doom/find-file-in-private-config
-  :before #'doom/open-private-config
-  :before #'doom/goto-private-config-file
-  :before #'doom/goto-private-init-file
-  :before #'doom/goto-private-packages-file
-  (when (modulep! :ui workspaces)
-    (+workspace-switch "doom" t)))
-
 ;; Astro
 (add-to-list 'auto-mode-alist '(".*\\.astro\\'"  . web-mode))
-
-;; Eat
-(use-package! eat
-  :config
-  (setq eat-term-name "xterm-256color"))
 
 ;; Julia REPL
 (use-package! julia-repl
@@ -143,3 +128,5 @@
 ;;   (unless sly-protocol-version
 ;;     (setq sly-protocol-version (sly-version nil (locate-library "sly.el")))))
 ;; (advice-add #'sly-check-version :before #'+common-lisp*refresh-sly-version)
+
+(setq web-mode-engines-alist '(("django" . "\\.html\\'")))
