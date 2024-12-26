@@ -85,13 +85,6 @@
         org-roam-ui-update-on-save t
         org-roam-ui-open-on-start t))
 
-;; (use-package! elcord
-;;   :init
-;;   (setq elcord-use-major-mode-as-main-icon t)
-;;   (setq elcord-editor-icon "doom_cute_icon")
-;;   (setq elcord-display-line-numbers nil)
-;;   (add-hook 'doom-first-buffer-hook #'elcord-mode))
-
 (map! :after python
       :map python-mode-map
       :localleader
@@ -123,10 +116,9 @@
 
 (setq eglot-jl-language-server-project "~/.julia/environments/v1.10")
 
-;; Common Lisp
-;; (defun +common-lisp*refresh-sly-version (version conn)
-;;   (unless sly-protocol-version
-;;     (setq sly-protocol-version (sly-version nil (locate-library "sly.el")))))
-;; (advice-add #'sly-check-version :before #'+common-lisp*refresh-sly-version)
-
+;; Support django/jinja2/tera templates without a different file extension
 (setq web-mode-engines-alist '(("django" . "\\.html\\'")))
+
+(after! odin-mode
+  (set-eglot-client! 'odin-mode '("ols"))
+  (add-hook 'odin-mode-hook #'lsp!))
